@@ -19,6 +19,7 @@ public class MemoRepositoryTests {
     public void testClass(){
         System.out.println(memoRepository.getClass().getName());
     }
+    //MemoRepository의 save(memo entity 객체의 참조값)를 호출해서 insert를 한다.
 
     @Test
     public void testInsertDummies(){
@@ -27,6 +28,10 @@ public class MemoRepositoryTests {
             memoRepository.save(memo);
         });
     }
+
+    //MemoRepository의 findBuId(Memo Entity 객체의 Id로 설정된 필드값)를 호출해서 select한다.
+    //findBuId()호출되면 바로 select문을 실행한다.
+    //findBuId()는 NullPointerEcception이 발생되지 않도록 Null 체크를 한다.
     @Test
     public void testSelect(){
         Long mno = 100L;
@@ -40,6 +45,9 @@ public class MemoRepositoryTests {
             System.out.println(memo);
         }
     }
+
+    //MemoRepository의 getOne(Memo Entity 객체의 Id로 설정된 필드값)를 호출해서 select한다.
+    //getOne()호출되면 바로 실행되지 않고 Memo Entity가 필요할 때 select를 실행한다.
     @Transactional
     @Test
     public void testSelect2(){
@@ -52,6 +60,9 @@ public class MemoRepositoryTests {
         System.out.println(memo);
         }
 
+
+    //MemoRepository의 save(memo entity 객체의 참조값)를 호출해서 update를 한다.
+    //save()는 호충하면 먼저 select를 하기 때문에 기존에 entity 가 있을 때는  update를 실행한다.
     @Test
     public void testUpdate(){
         Memo memo = Memo.builder().mno(95L).memoText("=Update Dummy Data 95").build();
@@ -62,8 +73,14 @@ public class MemoRepositoryTests {
     }
 
 
+    //MemoRepository의 deleteByid(MemoEntity의 mno 값)를 호출해서 delete 한다.
     @Test
-    public void
+    public void testDelete(){
+        Long mno = 100L;
+        memoRepository.deleteById(mno);
     }
+
+
+}
 
 
