@@ -4,6 +4,7 @@ import kr.ac.kopo.oracledb0314.entity.Memo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -39,4 +40,30 @@ public class MemoRepositoryTests {
             System.out.println(memo);
         }
     }
-}
+    @Transactional
+    @Test
+    public void testSelect2(){
+        Long mno = 100L;
+
+        Memo memo = memoRepository.getOne(mno);
+
+        System.out.println("====================================");
+
+        System.out.println(memo);
+        }
+
+    @Test
+    public void testUpdate(){
+        Memo memo = Memo.builder().mno(95L).memoText("=Update Dummy Data 95").build();
+
+        Memo memo1 = memoRepository.save(memo);
+
+        System.out.println(memo1);
+    }
+
+
+    @Test
+    public void
+    }
+
+
