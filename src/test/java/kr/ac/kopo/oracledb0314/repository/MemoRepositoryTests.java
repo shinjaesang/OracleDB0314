@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -86,7 +87,7 @@ public class MemoRepositoryTests {
     @Test
     public void testPageDefault(){
     //1페이지당 10개의 Entity
-        Pageable pageable = PageRequest.of(0, 10);
+        Pageable pageable = PageRequest.of(1, 10);
 
         Page<Memo> result = memoRepository.findAll(pageable);
 
@@ -95,6 +96,28 @@ public class MemoRepositoryTests {
         for(Memo memo : result.getContent()){
             System.out.println(memo);
         }
+
+        System.out.println("------------------------");
+        System.out.println("Total Pages: " + result.getTotalPages());
+        System.out.println("Total Count: " + result.getTotalElements());
+        System.out.println("Page Number: " + result.getNumber());
+        System.out.println("Page Size: " + result.getSize());
+        System.out.println("has next page?: " + result.hasNext());
+        System.out.println("first page?: " + result.isFirst());
+
+
+
+    }
+    @Test
+    public void testSort(){
+//        Sort sort1 = Sort.by("mno").descending();
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("mno").descending());
+
+        Page<Memo> result = memoRepository.findAll(pageable);
+
+        result.get().forEach(memo -> {
+            System.out.println(memo.getMno() + ", content:" + memo.getMemoText());
+        });
     }
 
 }
